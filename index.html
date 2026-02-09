@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sirvan’s Island – 2034</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #cbe4ff, #e4d9ff);
+      text-align: center;
+      color: #222;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2.6rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    #countdown {
+      font-size: 1.6rem;
+      margin: 25px 0;
+      font-weight: bold;
+    }
+
+    .timezone {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .stage {
+      margin-top: 70px;
+      display: flex;
+      justify-content: center;
+      gap: 90px;
+      flex-wrap: wrap;
+    }
+
+    /* =======================
+       CHARACTER BASE
+    ======================= */
+    .character {
+      width: 140px;
+      height: 300px;
+      position: relative;
+      animation: dance 0.9s infinite ease-in-out;
+    }
+
+    .head {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: auto;
+      position: relative;
+    }
+
+    .body {
+      width: 75px;
+      height: 120px;
+      border-radius: 22px;
+      margin: 12px auto 0;
+    }
+
+    /* =======================
+       SKIN 1 – HOODIE / NEON
+    ======================= */
+    .skin-hoodie .head {
+      background: #1c1c1c;
+    }
+
+    .skin-hoodie .visor {
+      width: 70px;
+      height: 26px;
+      background: linear-gradient(90deg, #00f5ff, #00ff99);
+      border-radius: 20px;
+      position: absolute;
+      top: 46px;
+      left: 25px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.8);
+    }
+
+    .skin-hoodie .body {
+      background: linear-gradient(180deg, #4dabf7, #1c7ed6);
+    }
+
+    /* =======================
+       SKIN 2 – ARMOR / SCI-FI
+    ======================= */
+    .skin-armor .head {
+      background: #555;
+    }
+
+    .skin-armor .helmet {
+      width: 85px;
+      height: 42px;
+      background: linear-gradient(90deg, #ff4d4d, #ffa94d);
+      border-radius: 0 0 30px 30px;
+      position: absolute;
+      top: 44px;
+      left: 18px;
+      box-shadow: 0 0 10px rgba(255,120,0,0.8);
+    }
+
+    .skin-armor .body {
+      background: linear-gradient(180deg, #63e6be, #2f9e44);
+    }
+
+    /* =======================
+       DANCE ANIMATION
+    ======================= */
+    @keyframes dance {
+      0%   { transform: rotate(0deg) translateY(0); }
+      25%  { transform: rotate(6deg) translateY(-12px); }
+      50%  { transform: rotate(0deg) translateY(0); }
+      75%  { transform: rotate(-6deg) translateY(-12px); }
+      100% { transform: rotate(0deg) translateY(0); }
+    }
+
+    footer {
+      margin: 70px 0 35px;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 id="title">Preparing Sirvan’s Island… 🏝️</h1>
+  <p id="subtitle">This site will officially run in January 2034</p>
+
+  <div id="countdown">Loading countdown…</div>
+  <div class="timezone">⏰ Adelaide time (Australia/Adelaide)</div>
+
+  <div class="stage">
+    <!-- Hoodie / Neon Skin -->
+    <div class="character skin-hoodie">
+      <div class="head">
+        <div class="visor"></div>
+      </div>
+      <div class="body"></div>
+    </div>
+
+    <!-- Armor / Sci-Fi Skin -->
+    <div class="character skin-armor">
+      <div class="head">
+        <div class="helmet"></div>
+      </div>
+      <div class="body"></div>
+    </div>
+  </div>
+
+  <footer>
+    Built with love for <strong>Sirvan</strong>, a future gaming legend 🎮
+  </footer>
+
+  <script>
+    const ADL_TIMEZONE = "Australia/Adelaide";
+
+    function getAdelaideNow() {
+      return new Date(
+        new Date().toLocaleString("en-US", { timeZone: ADL_TIMEZONE })
+      );
+    }
+
+    // Target: 1 January 2034, 00:00 Adelaide time
+    function getTargetAdelaideTime() {
+      return new Date(
+        "2034-01-01T00:00:00"
+      );
+    }
+
+    function updateCountdown() {
+      const now = getAdelaideNow();
+      const target = new Date(
+        getTargetAdelaideTime().toLocaleString("en-US", { timeZone: ADL_TIMEZONE })
+      );
+
+      const diff = target.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        document.getElementById("title").innerText =
+          "Welcome to Sirvan’s Island! 🎮🔥";
+        document.getElementById("subtitle").innerText =
+          "The island is live. Let the games begin!";
+        document.getElementById("countdown").innerText =
+          "🚀 It’s 2034 in Adelaide!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").innerText =
+        `${days} days • ${hours} hours • ${minutes} minutes • ${seconds} seconds`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+
+</body>
+</html>
